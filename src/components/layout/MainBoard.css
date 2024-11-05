@@ -1,0 +1,74 @@
+.main-board {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1em;
+    padding: 2em;
+}
+
+.column {
+    width: 100%;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5em;
+    margin-bottom: 1em;
+}
+
+.title span {
+    height: 15px;
+    width: 15px;
+    background-color: var(--text-secondary-color);
+    border-radius: 50%;
+}
+
+.msg {
+    font-weight: bold;
+}
+
+span.to-do {
+    background: #65BFDB;
+}
+
+span.doing {
+    background: #8475DB;
+}
+
+span.done {
+    background: #83D4BA;
+}
+
+.title h3 {
+    color: var(--text-secondary-color);
+    font-size: 1em;
+}
+
+.task {
+    width: 100%;
+    background: var(--secondary-color);
+    margin-bottom: 1em;
+    padding: 1em 2em;
+    border-radius: .5em;
+    cursor: pointer;
+    box-shadow: 0 0 1em var(--shadow-color);
+}
+
+.task h4 {
+    margin-bottom: .3em;
+}
+
+.task span {
+    color: var(--text-secondary-color);
+}
+
+
+
+@media (max-width: 1000px) {
+    .main-board {
+        display: flex;
+        flex-direction: column;
+    }
+}
