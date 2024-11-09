@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 
-// Componentes
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 import Header from "../layout/Header"
 import MainBoard from "../layout/MainBoard"
 import Sidebar from "../layout/Sidebar"
@@ -34,7 +36,7 @@ const Home = () => {
         }
       }
     } catch (error) {
-      error.response?.data.error ? alert(error.response.data.error) : null
+      error.response?.data.error ? toast.error(error.response.data.error, { position: "top-right" }) : null
       console.error("Erro ao carregar dados: ", error)
     }
   }
@@ -55,7 +57,7 @@ const Home = () => {
 
       setIsOpen(false)
     } catch (error) {
-      error.response?.data.error ? alert(error.response.data.error) : null
+      error.response?.data.error ? toast.error(error.response.data.error, { position: "top-right" }) : null
       console.error("Erro ao deletar painel: ", error)
     }
   }
@@ -70,9 +72,10 @@ const Home = () => {
       if (result) {
         fetchData()
         setIsOpen(false)
+        setActiveBoardId(result.id_board)        
       }
     } catch (error) {
-      error.response?.data.error ? alert(error.response.data.error) : null
+      error.response?.data.error ? toast.error(error.response.data.error, { position: "top-right" }) : null
       console.error("Erro ao adicionar painel: ", error)
     }
   }
@@ -99,7 +102,7 @@ const Home = () => {
         setShowTaskModal(false)
       }
     } catch (error) {
-      error.response?.data.error ? alert(error.response.data.error) : null
+      error.response?.data.error ? toast.error(error.response.data.error, { position: "top-right" }) : null
       console.error("Erro ao atualizar tarefa: ", error)
     }
   }
@@ -114,7 +117,7 @@ const Home = () => {
         setShowTaskModal(false)
       }
     } catch (error) {
-      error.response?.data.error ? alert(error.response.data.error) : null
+      error.response?.data.error ? toast.error(error.response.data.error, { position: "top-right" }) : null
       console.error("Erro ao deletar tarefa: ", error)
     }
   }
@@ -130,7 +133,7 @@ const Home = () => {
         setShowAddTaskForm(false) // Fecha o formulário
       }
     } catch (error) {
-      error.response?.data.error ? alert(error.response.data.error) : null
+      error.response?.data.error ? toast.error(error.response.data.error, { position: "top-right" }) : null
       console.error("Erro ao adicionar tarefa: ", error)
     }
   }
@@ -148,6 +151,7 @@ const Home = () => {
 
   return (
     <>
+      <ToastContainer />
       <div className="container">
         <Sidebar
           boards={boards}
