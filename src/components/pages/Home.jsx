@@ -22,43 +22,58 @@ const Home = () => {
   const [darkMode, setDarkMode] = useState(true)
 
   const fetchData = async () => {
-    const response = await api.get("/boards/overview")
-    const result = await response.data
+    try {
+      const response = await api.get("/boards/overview")
+      const result = await response.data
 
-    if (result) {
-      setBoards(result)
-      
-       if (activeBoardId == null) {
-        setActiveBoardId(result[0].id)
-       }
+      if (result) {
+        setBoards(result)
+
+        if (activeBoardId == null) {
+          setActiveBoardId(result[0].id)
+        }
+      }
+    } catch (error) {
+      error.response?.data.error ? alert(error.response.data.error) : null
+      console.error("Erro ao carregar dados: ", error)
     }
   }
 
   const deleteBoard = async (id) => {
-    const response = await api.delete(`/boards/${id}`)
-    const result = await response.data
+    try {
+      const response = await api.delete(`/boards/${id}`)
+      const result = await response.data
 
-    if (result) {
-      fetchData()
+      if (result) {
+        fetchData()
+      }
+
+      // Se o board ativo for deletado, resetamos o activeBoardId
+      if (activeBoardId === id) {
+        setActiveBoardId(null)
+      }
+
+      setIsOpen(false)
+    } catch (error) {
+      error.response?.data.error ? alert(error.response.data.error) : null
+      console.error("Erro ao deletar painel: ", error)
     }
-
-    // Se o board ativo for deletado, resetamos o activeBoardId
-    if (activeBoardId === id) {
-      setActiveBoardId(null)
-    }
-
-    setIsOpen(false)
   }
 
   const addBoard = async (title) => {
-    const response = await api.post("/boards", {
-      title
-    })
-    const result = await response.data
+    try {
+      const response = await api.post("/boards", {
+        title
+      })
+      const result = await response.data
 
-    if (result) {
-      fetchData()
-      setIsOpen(false)
+      if (result) {
+        fetchData()
+        setIsOpen(false)
+      }
+    } catch (error) {
+      error.response?.data.error ? alert(error.response.data.error) : null
+      console.error("Erro ao adicionar painel: ", error)
     }
   }
 
@@ -72,36 +87,51 @@ const Home = () => {
   }
 
   const updateTask = async (subtaskId, subtaskIsDone) => {
-    const response = await api.put(`/subtasks/${subtaskId}`, {
-      is_done: !subtaskIsDone
-    })
+    try {
+      const response = await api.put(`/subtasks/${subtaskId}`, {
+        is_done: !subtaskIsDone
+      })
 
-    const result = response.data
+      const result = response.data
 
-    if (result) {
-      fetchData()
-      setShowTaskModal(false)
+      if (result) {
+        fetchData()
+        setShowTaskModal(false)
+      }
+    } catch (error) {
+      error.response?.data.error ? alert(error.response.data.error) : null
+      console.error("Erro ao atualizar tarefa: ", error)
     }
   }
 
   const deleteTask = async (taskId) => {
-    const response = await api.delete(`/tasks/${activeBoardId}/${taskId}`)
-    const result = await response.data
+    try {
+      const response = await api.delete(`/tasks/${activeBoardId}/${taskId}`)
+      const result = await response.data
 
-    if (result) {
-      fetchData()
-      setShowTaskModal(false)
+      if (result) {
+        fetchData()
+        setShowTaskModal(false)
+      }
+    } catch (error) {
+      error.response?.data.error ? alert(error.response.data.error) : null
+      console.error("Erro ao deletar tarefa: ", error)
     }
   }
 
 
   const addTask = async (newTask) => {
-    const response = await api.post(`/tasks/${activeBoardId}`, newTask)
-    const result = await response.data
+    try {
+      const response = await api.post(`/tasks/${activeBoardId}`, newTask)
+      const result = await response.data
 
-    if (result) {
-      fetchData() // Recarrega os dados após adicionar a tarefa
-      setShowAddTaskForm(false) // Fecha o formulário
+      if (result) {
+        fetchData() // Recarrega os dados após adicionar a tarefa
+        setShowAddTaskForm(false) // Fecha o formulário
+      }
+    } catch (error) {
+      error.response?.data.error ? alert(error.response.data.error) : null
+      console.error("Erro ao adicionar tarefa: ", error)
     }
   }
 

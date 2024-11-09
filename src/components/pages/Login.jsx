@@ -24,8 +24,8 @@ const Login = () => {
       localStorage.setItem("authToken", result.token)
       navigate("/home")
     } catch (error) {
+      error.response?.data.error ? alert(error.response.data.error) : null
       console.error("Erro ao realizar login: ", error)
-      alert("Erro ao realizar login")
     }
   }
 

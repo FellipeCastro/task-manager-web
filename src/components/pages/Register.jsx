@@ -37,8 +37,8 @@ const Register = () => {
             localStorage.setItem("authToken", result.token)
             navigate("/home")
         } catch (error) {
-            console.error("Erro ao registrar usuário: ", error)
-            alert("Erro ao registrar usuário")
+            error.response?.data.error ? alert("Erro ao realizar cadastro") : null
+            console.error("Erro ao realizar cadastro: ", error)
         }
     }
 
