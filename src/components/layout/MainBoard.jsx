@@ -1,6 +1,10 @@
 import "./MainBoard.css"
 
-const MainBoard = ({ activeBoard, handleTaskClick }) => {
+const MainBoard = ({ activeBoard, handleTaskClick, loading }) => {
+    if (loading) {
+        return <div className="main-board"><h3>Carregando...</h3></div>
+    }
+    
     // Verificande se nenhum board esta ativo
     if (!activeBoard) {
         return <div className="main-board"><h3>Selecione um painel</h3></div>

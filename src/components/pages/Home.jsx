@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
@@ -22,132 +21,108 @@ const Home = () => {
   const [selectedTask, setSelectedTask] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [darkMode, setDarkMode] = useState(true)
+  const [loading, setLoading] = useState(true)
 
-  const fetchData = async () => {
-    try {
-      const response = await api.get("/boards/overview")
-      const result = await response.data
-
-      if (result) {
-        setBoards(result)
-
-        if (activeBoardId == null) {
-          setActiveBoardId(result[0].id)
-        }
-      }
-    } catch (error) {
-      error.response?.data.error ? toast.error(error.response.data.error, { position: "top-right" }) : null
-      console.error("Erro ao carregar dados: ", error)
-    }
+  // Função central para tratamento de erros
+  const handleApiError = (error, defaultMessage) => {
+    const errorMessage = error.response?.data?.error || defaultMessage
+    toast.error(errorMessage, { position: "top-right" })
+    console.error(defaultMessage, error)
   }
 
-  const deleteBoard = async (id) => {
+  // Função central para atualizar dados
+  const updateData = async () => {
     try {
-      const response = await api.delete(`/boards/${id}`)
-      const result = await response.data
-
-      if (result) {
-        fetchData()
+      const response = await api.get("/boards/overview")
+      const result = response.data
+      setBoards(result)
+      if (activeBoardId == null && result.length > 0) {
+        setActiveBoardId(result[0].id)
       }
-
-      // Se o board ativo for deletado, resetamos o activeBoardId
-      if (activeBoardId === id) {
-        setActiveBoardId(null)
-      }
-
-      setIsOpen(false)
+      setLoading(false)
     } catch (error) {
-      error.response?.data.error ? toast.error(error.response.data.error, { position: "top-right" }) : null
-      console.error("Erro ao deletar painel: ", error)
+      handleApiError(error, "Erro ao carregar dados.")
     }
   }
 
   const addBoard = async (title) => {
     try {
-      const response = await api.post("/boards", {
-        title
-      })
-      const result = await response.data
-
-      if (result) {
-        fetchData()
-        setIsOpen(false)
-        setActiveBoardId(result.id_board)        
-      }
+      const response = await api.post("/boards", { title })
+      await updateData()
+      setActiveBoardId(response.data.id_board)
+      setIsOpen(false)
     } catch (error) {
-      error.response?.data.error ? toast.error(error.response.data.error, { position: "top-right" }) : null
-      console.error("Erro ao adicionar painel: ", error)
+      handleApiError(error, "Erro ao adicionar painel.")
     }
   }
 
-  // Definindo board ativo com base no activeBoardId
-  const activeBoard = boards.find((board) => board.id === activeBoardId)
-
-  // Função para mostrar o modal da tarefa clicada
-  const handleTaskClick = (task) => {
-    setSelectedTask(task)
-    setShowTaskModal(true)
-  }
-
-  const updateTask = async (subtaskId, subtaskIsDone) => {
+  const deleteBoard = async (id) => {
     try {
-      const response = await api.put(`/subtasks/${subtaskId}`, {
-        is_done: !subtaskIsDone
-      })
+      await api.delete(`/boards/${id}`)
+      await updateData()  // Aguarda a atualização dos dados para refletir a exclusão
 
-      const result = response.data
-
-      if (result) {
-        fetchData()
-        setShowTaskModal(false)
+      // Verifica se o board ativo foi deletado
+      if (activeBoardId === id) {
+        // Se há boards disponíveis após a exclusão, define o primeiro como ativo
+        if (boards.length > 0) {
+          setActiveBoardId(boards[0].id)
+        } else {
+          // Se não há mais boards, define o activeBoardId como null
+          setActiveBoardId(null)
+        }
       }
+      setIsOpen(false)
     } catch (error) {
-      error.response?.data.error ? toast.error(error.response.data.error, { position: "top-right" }) : null
-      console.error("Erro ao atualizar tarefa: ", error)
-    }
-  }
-
-  const deleteTask = async (taskId) => {
-    try {
-      const response = await api.delete(`/tasks/${activeBoardId}/${taskId}`)
-      const result = await response.data
-
-      if (result) {
-        fetchData()
-        setShowTaskModal(false)
-      }
-    } catch (error) {
-      error.response?.data.error ? toast.error(error.response.data.error, { position: "top-right" }) : null
-      console.error("Erro ao deletar tarefa: ", error)
+      handleApiError(error, "Erro ao deletar painel.")
     }
   }
 
 
   const addTask = async (newTask) => {
     try {
-      const response = await api.post(`/tasks/${activeBoardId}`, newTask)
-      const result = await response.data
-
-      if (result) {
-        fetchData() // Recarrega os dados após adicionar a tarefa
-        setShowAddTaskForm(false) // Fecha o formulário
-      }
+      await api.post(`/tasks/${activeBoardId}`, newTask)
+      await updateData()
+      setShowAddTaskForm(false)
     } catch (error) {
-      error.response?.data.error ? toast.error(error.response.data.error, { position: "top-right" }) : null
-      console.error("Erro ao adicionar tarefa: ", error)
+      handleApiError(error, "Erro ao adicionar tarefa.")
     }
   }
 
+  const updateTask = async (subtaskId, subtaskIsDone) => {
+    try {
+      await api.put(`/subtasks/${subtaskId}`, { is_done: !subtaskIsDone })
+      await updateData()
+      setShowTaskModal(false)
+    } catch (error) {
+      handleApiError(error, "Erro ao atualizar tarefa.")
+    }
+  }
+
+  const deleteTask = async (taskId) => {
+    try {
+      await api.delete(`/tasks/${activeBoardId}/${taskId}`)
+      await updateData()
+      setShowTaskModal(false)
+    } catch (error) {
+      handleApiError(error, "Erro ao deletar tarefa.")
+    }
+  }
+
+  const handleTaskClick = (task) => {
+    setSelectedTask(task)
+    setShowTaskModal(true)
+  }
 
   const toggleMode = () => {
     setDarkMode(!darkMode)
-    const html = document.querySelector("html")
-    html.classList.toggle("light-mode")
+    document.querySelector("html").classList.toggle("light-mode")
   }
 
   useEffect(() => {
-    fetchData()
+    updateData()
   }, [])
+
+  const activeBoard = boards.find((board) => board.id === activeBoardId)
 
   return (
     <>
@@ -170,35 +145,20 @@ const Home = () => {
             setShowAddTaskForm={setShowAddTaskForm}
             setIsOpen={setIsOpen}
           />
-          <MainBoard
-            activeBoard={activeBoard}
-            handleTaskClick={handleTaskClick}
-          />
+          <MainBoard activeBoard={activeBoard} handleTaskClick={handleTaskClick} loading={loading} />
         </div>
       </div>
 
       <Footer />
 
       {showAddBoardForm && (
-        <AddBoardForm
-          setShowAddBoardForm={setShowAddBoardForm}
-          addBoard={addBoard}
-        />
+        <AddBoardForm setShowAddBoardForm={setShowAddBoardForm} addBoard={addBoard} />
       )}
       {showAddTaskForm && (
-        <AddTaskForm
-          setShowAddTaskForm={setShowAddTaskForm}
-          addTask={addTask}
-          activeBoardId={activeBoardId}
-        />
+        <AddTaskForm setShowAddTaskForm={setShowAddTaskForm} addTask={addTask} activeBoardId={activeBoardId} />
       )}
       {showTaskModal && (
-        <TaskModal
-          task={selectedTask}
-          setShowTaskModal={setShowTaskModal}
-          updateTask={updateTask}
-          deleteTask={deleteTask}
-        />
+        <TaskModal task={selectedTask} setShowTaskModal={setShowTaskModal} updateTask={updateTask} deleteTask={deleteTask} />
       )}
     </>
   )
