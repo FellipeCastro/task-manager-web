@@ -14,7 +14,7 @@ const Sidebar = ({ boards, activeBoardId, setActiveBoardId, deleteBoard, setShow
     return (
         <aside className={isOpen ? "aside open" : "aside"}>
             <h1>TaskManager <button className="mode-btn" onClick={toggleMode}>{darkMode ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}</button></h1>
-            <span>Todos painéis ({boards.length})</span>
+            <span className="info">Todos painéis ({boards.length})</span>
 
             <div className="boards">
                 {boards.map((board) => {

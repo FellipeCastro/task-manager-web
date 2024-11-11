@@ -26,15 +26,15 @@ const AddBoardForm = ({ setShowAddBoardForm, addBoard }) => {
         <>
             <div className="fade" onClick={() => setShowAddBoardForm(false)}></div>
             <div className="container-form">
-                <h2>Adicionar novo projeto</h2>
+                <h2>Adicionar novo painel</h2>
 
                 <form method="post" autoComplete="off" className="form" onSubmit={handleSubmit}>
                     <div className={`input-container ${titleError ? "error" : ""}`}>
                         <label htmlFor="title">Titulo</label>
-                        <input type="text" name="title" id="title" placeholder="Digite o titulo do projeto aqui" value={newBoardTitle} onChange={(e) => setNewBoardTitle(e.target.value)} />
+                        <input type="text" name="title" id="title" placeholder="Digite o titulo do painel aqui" value={newBoardTitle} onChange={(e) => setNewBoardTitle(e.target.value)} />
                         <span>Digite o titulo para prosseguir</span>
                     </div>
-                    <button type="submit" className="submit-btn">Criar projeto</button>
+                    <button type="submit" className="submit-btn">Criar painel</button>
                 </form>
             </div>
         </>
