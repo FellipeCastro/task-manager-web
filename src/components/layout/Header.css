@@ -61,8 +61,6 @@
 
 @media (max-width: 760px) {
     .header {
-        flex-direction: column;
-        align-items: flex-start;
         gap: 1em;
     }
 
@@ -100,5 +98,12 @@
 
     .logout-btn {
         font-size: 1.2em;
+    }
+}
+
+@media (max-width: 315px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }

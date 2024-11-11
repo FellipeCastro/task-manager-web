@@ -204,3 +204,71 @@
         font-size: 0.9em;
     }
 }
+
+@media (max-width: 480px) {
+    .container-form {
+        width: 95%;
+        padding: 0.8em;
+        max-width: 400px;
+    }
+
+    .container-form h2 {
+        font-size: 1.1em;
+        text-align: center;
+    }
+
+    .input-container label,
+    .sub-container .label {
+        font-size: 0.9em;
+    }
+
+    .input-container input,
+    .input-container textarea,
+    .input-sub-container input {
+        padding: 0.6em 0.8em;
+        font-size: 0.9em;
+    }
+
+    .new-sub-btn,
+    .submit-btn {
+        padding: 0.7em 1em;
+        font-size: 0.9em;
+    }
+
+    .delete-sub {
+        font-size: 0.8em;
+        padding: 0.2em;
+    }
+}
+
+@media (max-width: 360px) {
+    .container-form {
+        max-width: 300px;
+    }
+
+    .container-form h2 {
+        font-size: 1em;
+    }
+
+    .input-container input,
+    .input-container textarea,
+    .input-sub-container input {
+        padding: 0.5em 0.7em;
+        font-size: 0.8em;
+    }
+
+    .new-sub-btn,
+    .submit-btn {
+        padding: 0.6em 0.8em;
+        font-size: 0.8em;
+    }
+
+    .delete-sub {
+        font-size: 0.7em;
+    }
+
+    .input-container label,
+    .sub-container .label {
+        font-size: 0.8em;
+    }
+}

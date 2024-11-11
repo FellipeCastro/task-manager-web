@@ -107,6 +107,7 @@
         position: fixed;
         bottom: 100%;
         transition: .5s;
+        padding: 1em;
     }
 
     .open {
@@ -138,7 +139,6 @@
 
     .board {
         font-size: 1em;
-        margin-left: -3em;
     }
 
     .board svg {
