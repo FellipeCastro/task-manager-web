@@ -9,7 +9,7 @@ const TaskModal = ({ task, setShowTaskModal, updateTask, deleteTask }) => {
     // Função que conta quantas subtarefas foram concluídas
     const countCompletedSubtasks = (subtasks) => {
         // Filtra as subtarefas e retorna apenas as concluídas
-        return subtasks.filter((subtask) => subtask.isDone).length
+        return subtasks.filter((subtask) => subtask.is_done).length
     }
 
     const handleEdit = (subtaskId, subtaskIsDone) => {
