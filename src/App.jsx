@@ -12,13 +12,12 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route 
             path="/home"
             element={
-              token ? <Home /> : <Navigate to="/login" />
+              token ? <Home /> : <Navigate to="/" />
             }
           />
         </Routes>

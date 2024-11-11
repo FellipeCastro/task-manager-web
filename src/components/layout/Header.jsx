@@ -9,7 +9,7 @@ const Header = ({ activeBoard, setShowAddTaskForm, setIsOpen }) => {
     
     const handleLogout = () => {
         localStorage.removeItem("authToken")
-        navigate("/login")
+        navigate("/")
     }
     
     return (
