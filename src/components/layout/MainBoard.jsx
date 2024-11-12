@@ -2,12 +2,12 @@ import "./MainBoard.css"
 
 const MainBoard = ({ activeBoard, handleTaskClick, loading }) => {
     if (loading) {
-        return <div className="main-board"><h3>Carregando...</h3></div>
+        return <div className="main-board"><p className="msg">Carregando...</p></div>
     }
     
     // Verificande se nenhum board esta ativo
     if (!activeBoard) {
-        return <div className="main-board"><h3>Selecione um painel</h3></div>
+        return <div className="main-board"><p className="msg">Selecione um painel</p></div>
     }
 
     // Contando as subtasks completas

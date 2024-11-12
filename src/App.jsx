@@ -6,18 +6,19 @@ import Login from "./components/pages/Login"
 import Register from "./components/pages/Register"
 
 const App = () => {
-  const token  = localStorage.getItem("authToken")
+  const token = localStorage.getItem("authToken")
 
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route exact path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route 
+          <Route
             path="/home"
             element={
-              token ? <Home /> : <Navigate to="/" />
+              token ? <Home /> : <Navigate to="/login" />
             }
           />
         </Routes>

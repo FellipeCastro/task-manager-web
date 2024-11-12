@@ -20,20 +20,22 @@ const Register = () => {
         e.preventDefault()
 
         if (password !== confirmPassword) {
-            alert("As senhas não conferem")
+            toast.error("As senhas não conferem", { position: "top-right" })
             return
         }
+
+        const formatedEmail = email.toLocaleLowerCase().trim()
 
         try {
             const response = await api.post("/users/register", {
                 name,
-                email,
+                email: formatedEmail,
                 password
             })
             const result = response.data
 
             if (!result) {
-                alert("Erro ao registrar usuário")
+                toast.error("Erro ao registrar usuário", { position: "top-right" })
                 return
             }
 
@@ -69,7 +71,7 @@ const Register = () => {
                         <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirme sua senha aqui" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                     </div>
                     <button type="submit" className="submit-btn">Cadastrar</button>
-                    <span className="bottom-link">Já tem uma conta? <Link to="/">Faça seu login já</Link></span>
+                    <span className="bottom-link">Já tem uma conta? <Link to="/login">Faça seu login já</Link></span>
                 </form>
             </div>
         </>

@@ -17,9 +17,11 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault()
 
+    const formatedEmail = email.toLocaleLowerCase().trim()
+
     try {
       const response = await api.post("/users/login", {
-        email,
+        email: formatedEmail,
         password
       })
       const result = response.data
