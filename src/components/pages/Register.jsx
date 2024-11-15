@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
 import { toast, ToastContainer } from "react-toastify"
@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css"
 
 import api from "../../constants/api.js"
 
+import Loading from "../layout/Loading.jsx"
 import "../layout/Form.css"
 
 const Register = () => {
@@ -13,8 +14,14 @@ const Register = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [loading, setLoading] = useState(true)
 
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 2000)
+        return () => clearTimeout(timer)
+    }, [])
 
     const handleRegister = async (e) => {
         e.preventDefault()
@@ -46,6 +53,8 @@ const Register = () => {
             console.error("Erro ao realizar cadastro: ", error)
         }
     }
+
+    if (loading) return <Loading />
 
     return (
         <>

@@ -14,7 +14,7 @@
 .light-mode:root {
   --primary-color: #635EC5; 
   --secondary-color: #FFF; 
-  --bg-color: #E9E9E9; 
+  --bg-color: #F9F9F9; 
   --text-primary-color: #333;
   --text-secondary-color: #8A8A8A; 
   --fade-color: rgba(0, 0, 0, 0.5);
