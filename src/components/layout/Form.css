@@ -8,7 +8,7 @@
     background: var(--fade-color);
 }
 
-.container-form {    
+.container-form {
     width: 90%;
     max-width: 700px;
     z-index: 9;
@@ -18,7 +18,7 @@
     transform: translate(-50%, -50%);
     background: var(--secondary-color);
     padding: 2em;
-    border-radius: .5em;
+    border-radius: 0.5em;
 }
 
 .container-form h2 {
@@ -36,10 +36,10 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: .5em;
+    gap: 0.5em;
 }
 
-.input-container label, 
+.input-container label,
 .sub-container .label {
     font-size: 1em;
     font-weight: bold;
@@ -49,11 +49,11 @@
 .input-container textarea,
 .input-sub-container input {
     width: 100%;
-    padding: .8em 1em;
+    padding: 0.8em 1em;
     background: transparent;
     color: var(--text-primary-color);
     border: 1px solid var(--text-secondary-color);
-    border-radius: .2em;
+    border-radius: 0.2em;
     outline: none;
 }
 
@@ -71,7 +71,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: .5em;
+    gap: 0.5em;
 }
 
 .input-sub-container {
@@ -82,8 +82,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: .5em;
-    margin-bottom: .5em;
+    gap: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .delete-sub {
@@ -91,9 +91,9 @@
     background: transparent;
     font-size: 1.2em;
     color: var(--text-secondary-color);
-    padding: .5em;
+    padding: 0.5em;
     cursor: pointer;
-    transition: .5;
+    transition: 0.5;
 }
 
 .delete-sub:hover {
@@ -109,13 +109,13 @@
     color: var(--primary-color);
     font-weight: bold;
     cursor: pointer;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .submit-btn {
     border-color: var(--primary-color);
     background: var(--primary-color);
-    color: #FFF;
+    color: #fff;
 }
 
 .new-sub-btn:hover,
@@ -128,7 +128,7 @@
 .bottom-link {
     text-align: center;
     font-weight: bold;
-    font-size: .8em;
+    font-size: 0.8em;
     color: var(--text-secondary-color);
 }
 
@@ -136,7 +136,7 @@
     color: var(--primary-color);
 }
 
-.error label, 
+.error label,
 .error .label {
     color: var(--error-color);
 }
@@ -150,7 +150,7 @@
     display: block;
     color: var(--error-color);
     font-weight: bold;
-    font-size: .8em;
+    font-size: 0.8em;
     width: 100%;
 }
 
@@ -164,17 +164,17 @@
     .input-container input,
     .input-container textarea,
     .input-sub-container input {
-        padding: .7em .9em;
+        padding: 0.7em 0.9em;
     }
 
     .new-sub-btn,
     .submit-btn {
-        padding: .9em 1.5em;
+        padding: 0.9em 1.5em;
     }
 
     .delete-sub {
         font-size: 1em;
-        padding: .3em;
+        padding: 0.3em;
     }
 }
 
@@ -187,13 +187,13 @@
 
     .input-container label,
     .sub-container .label {
-        font-size: .9em;
+        font-size: 0.9em;
     }
 
     .new-sub-btn,
     .submit-btn {
-        padding: .8em 1.2em;
-        font-size: .9em;
+        padding: 0.8em 1.2em;
+        font-size: 0.9em;
     }
 
     h2 {

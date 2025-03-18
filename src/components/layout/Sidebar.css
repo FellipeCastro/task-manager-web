@@ -58,14 +58,14 @@
 .board:hover .delete-btn {
     opacity: 1;
     pointer-events: all;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .delete-btn {
     border: none;
     background: transparent;
     color: var(--text-secondary-color);
-    padding: .5em;
+    padding: 0.5em;
     cursor: pointer;
     opacity: 0;
     pointer-events: none;
@@ -83,7 +83,7 @@
 .active svg,
 .active span,
 .active .delete-btn {
-    color: #FFF;
+    color: #fff;
 }
 
 .new-board {
@@ -98,7 +98,7 @@
 .new-board:hover svg,
 .new-board:hover span {
     color: var(--text-secondary-color);
-    transition: .5s;
+    transition: 0.5s;
 }
 
 @media (max-width: 1290px) {
@@ -107,7 +107,7 @@
         height: 100vh;
         position: fixed;
         bottom: 100%;
-        transition: .5s;
+        transition: 0.5s;
         padding: 1em;
     }
 
