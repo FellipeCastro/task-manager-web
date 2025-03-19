@@ -1,8 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import api from "../../constants/api.js";
 
@@ -15,15 +12,21 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
+    const handleError = (error) => {
+        const errorMessage = error.response?.data?.error;
+        setError(errorMessage);
+        console.error(error);
+    };
 
     const handleRegister = async (e) => {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            toast.error("As senhas não conferem", { position: "top-right" });
+            setError("As senhas não conferem");
             return;
         }
 
@@ -37,21 +40,12 @@ const Register = () => {
             });
             const result = response.data;
 
-            if (!result) {
-                toast.error("Erro ao registrar usuário", {
-                    position: "top-right",
-                });
-                return;
-            }
-
+            setError(null);
+            setLoading(true);
             localStorage.setItem("authToken", result.token);
             navigate("/home");
         } catch (error) {
-            error.response?.data.error
-                ? toast.error("Erro ao realizar cadastro", {
-                      position: "top-right",
-                  })
-                : null;
+            error.response?.data.error ? handleError(error) : null;
             console.error("Erro ao realizar cadastro: ", error);
         }
     };
@@ -60,7 +54,12 @@ const Register = () => {
 
     return (
         <>
-            <ToastContainer />
+            <div className={error ? "error-msg" : "error-msg hide"}>
+                <span>{error}</span>
+                <button onClick={() => setError(null)}>
+                    X
+                </button>
+            </div>
             <div className="container-form">
                 <h2>Novo usuário</h2>
 
@@ -104,9 +103,7 @@ const Register = () => {
                         />
                     </div>
                     <div className="input-container">
-                        <label htmlFor="confirm-password">
-                            Confirmar senha
-                        </label>
+                        <label htmlFor="confirm-password">Confirmar senha</label>
                         <input
                             type="password"
                             name="confirm-password"
@@ -120,8 +117,7 @@ const Register = () => {
                         Cadastrar
                     </button>
                     <span className="bottom-link">
-                        Já tem uma conta?{" "}
-                        <Link to="/login">Faça seu login já</Link>
+                        Já tem uma conta? <Link to="/login">Faça seu login já</Link>
                     </span>
                 </form>
             </div>

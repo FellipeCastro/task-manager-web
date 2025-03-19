@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 import api from "../../constants/api";
 
 import Loading from "../layout/Loading";
@@ -13,8 +10,15 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate();
+
+    const handleError = (error) => {
+        const errorMessage = error.response?.data?.error;
+        setError(errorMessage);
+        console.error(error);
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -28,14 +32,12 @@ const Login = () => {
             });
             const result = response.data;
 
+            setError(null);
+            setLoading(true);
             localStorage.setItem("authToken", result.token);
             navigate("/home");
         } catch (error) {
-            error.response?.data.error
-                ? toast.error(error.response.data.error, {
-                      position: "top-right",
-                  })
-                : null;
+            error.response?.data.error ? handleError(error) : null;
             console.error("Erro ao realizar login: ", error);
         }
     };
@@ -44,7 +46,12 @@ const Login = () => {
 
     return (
         <>
-            <ToastContainer />
+            <div className={error ? "error-msg" : "error-msg hide"}>
+                <span>{error}</span>
+                <button onClick={() => setError(null)}>
+                    X
+                </button>
+            </div>
             <div className="container-form">
                 <h2>Login</h2>
 

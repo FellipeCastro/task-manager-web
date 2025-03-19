@@ -21,11 +21,12 @@ const Home = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(true);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     // Função central para tratamento de erros
     const handleApiError = (error, defaultMessage) => {
         const errorMessage = error.response?.data?.error || defaultMessage;
-        toast.error(errorMessage, { position: "top-right" });
+        setError(errorMessage);
         console.error(defaultMessage, error);
     };
 
@@ -58,15 +59,11 @@ const Home = () => {
     const deleteBoard = async (id) => {
         try {
             await api.delete(`/boards/${id}`);
-            await updateData(); // Aguarda a atualização dos dados para refletir a exclusão
-
-            // Verifica se o board ativo foi deletado
+            await updateData();
             if (activeBoardId === id) {
-                // Se há boards disponíveis após a exclusão, define o primeiro como ativo
                 if (boards.length > 0) {
                     setActiveBoardId(boards[0].id);
                 } else {
-                    // Se não há mais boards, define o activeBoardId como null
                     setActiveBoardId(null);
                 }
             }
@@ -126,7 +123,12 @@ const Home = () => {
 
     return (
         <>
-            <ToastContainer />
+            <div className={error ? "error-msg" : "error-msg hide"}>
+                <span>{error}</span>
+                <button onClick={() => setError(null)}>
+                    X
+                </button>
+            </div>
             <div className="container">
                 <Sidebar
                     boards={boards}

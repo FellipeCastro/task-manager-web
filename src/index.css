@@ -9,6 +9,7 @@
     --fade-color: rgba(0, 0, 0, 0.5);
     --shadow-color: rgba(0, 0, 0, 0.1);
     --error-color: #e57373;
+    --error-color-text: #832929;
 }
 
 .light-mode:root {
@@ -20,6 +21,7 @@
     --fade-color: rgba(0, 0, 0, 0.5);
     --shadow-color: rgba(0, 0, 0, 0.1);
     --error-color: #e57373;
+    --error-color-text: #832929;
 }
 
 * {
@@ -45,4 +47,36 @@
 
 .main-container {
     width: 100%;
+}
+
+.error-msg {
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 0.2rem;
+    color: var(--error-color-text);
+    font-weight: bold;
+    background-color: var(--error-color);
+    position: fixed;
+    bottom: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.2s ease-in-out;
+}
+
+.hide {
+    bottom: 100%;
+}
+
+.error-msg button {
+    padding: 0.4rem;
+    border: none;
+    background-color: transparent;
+    color: var(--error-color-text);
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
