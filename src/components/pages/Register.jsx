@@ -24,6 +24,7 @@ const Register = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         if (password !== confirmPassword) {
             setError("As senhas não conferem");
@@ -41,19 +42,18 @@ const Register = () => {
             const result = response.data;
 
             setError(null);
-            setLoading(true);
             localStorage.setItem("authToken", result.token);
             navigate("/home");
         } catch (error) {
             error.response?.data.error ? handleError(error) : null;
             console.error("Erro ao realizar cadastro: ", error);
+            setLoading(false);
         }
     };
 
-    if (loading) return <Loading />;
-
     return (
         <>
+            {loading && <Loading />}
             <div className={error ? "error-msg" : "error-msg hide"}>
                 <span>{error}</span>
                 <button onClick={() => setError(null)}>

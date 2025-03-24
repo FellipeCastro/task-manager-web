@@ -22,6 +22,7 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         const formatedEmail = email.toLocaleLowerCase().trim();
 
@@ -33,19 +34,18 @@ const Login = () => {
             const result = response.data;
 
             setError(null);
-            setLoading(true);
             localStorage.setItem("authToken", result.token);
             navigate("/home");
         } catch (error) {
             error.response?.data.error ? handleError(error) : null;
             console.error("Erro ao realizar login: ", error);
+            setLoading(false);
         }
     };
 
-    if (loading) return <Loading />;
-
     return (
         <>
+            {loading && <Loading />}
             <div className={error ? "error-msg" : "error-msg hide"}>
                 <span>{error}</span>
                 <button onClick={() => setError(null)}>
