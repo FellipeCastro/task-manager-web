@@ -45,6 +45,7 @@ const Register = () => {
             localStorage.setItem("authToken", result.token);
             navigate("/home");
         } catch (error) {
+            localStorage.removeItem("authToken");
             error.response?.data.error ? handleError(error) : null;
             console.error("Erro ao realizar cadastro: ", error);
             setLoading(false);

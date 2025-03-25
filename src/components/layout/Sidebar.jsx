@@ -14,6 +14,7 @@ const Sidebar = ({
     setIsOpen,
     darkMode,
     toggleMode,
+    loading,
 }) => {
     // Função para mudar o board ativo
     const toggleBoard = (id) => {
@@ -24,12 +25,16 @@ const Sidebar = ({
     return (
         <aside className={isOpen ? "aside open" : "aside"}>
             <h1>
-                TaskManager{" "}
+                TaskManager
                 <button className="mode-btn" onClick={toggleMode}>
                     {darkMode ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
                 </button>
             </h1>
             <span className="info">Todos painéis ({boards.length})</span>
+
+            {loading && (
+                <span className="loading-msg">Carregando...</span>
+            )}
 
             <div className="boards">
                 {boards.map((board) => {

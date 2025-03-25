@@ -25,9 +25,14 @@
     border-radius: 50%;
 }
 
+.loading-msg,
 .msg {
     font-weight: bold;
     color: var(--text-secondary-color);
+}
+
+.loading-msg {
+    animation: changeColor 2s infinite alternate;
 }
 
 span.to-do {
@@ -63,6 +68,12 @@ span.done {
 
 .task span {
     color: var(--text-secondary-color);
+}
+
+@keyframes changeColor {
+    0% { color: var(--text-primary-color); }
+    50% { color: var(--text-secondary-color); } 
+    100% { color: var(--text-primary-color); }
 }
 
 @media (max-width: 1000px) {

@@ -4,6 +4,8 @@
     padding: 2em;
     box-shadow: 0 0 1em var(--shadow-color);
     z-index: 7;
+    display: flex;
+    flex-direction: column;
 }
 
 .aside h1 {
@@ -22,8 +24,15 @@
     cursor: pointer;
 }
 
-.aside span {
+.info {
     color: var(--text-secondary-color);
+}
+
+.loading-msg {
+    margin-top: 2em;
+    color: var(--text-secondary-color);
+    font-weight: bold;
+    animation: changeColor 2s infinite alternate;
 }
 
 .boards {
@@ -99,6 +108,12 @@
 .new-board:hover span {
     color: var(--text-secondary-color);
     transition: 0.5s;
+}
+
+@keyframes changeColor {
+    0% { color: var(--text-primary-color); }
+    50% { color: var(--text-secondary-color); } 
+    100% { color: var(--text-primary-color); }
 }
 
 @media (max-width: 1290px) {

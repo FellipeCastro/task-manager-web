@@ -4,7 +4,7 @@ const MainBoard = ({ activeBoard, handleTaskClick, loading }) => {
     if (loading) {
         return (
             <div className="main-board">
-                <p className="msg">Carregando...</p>
+                <p className="loading-msg">Carregando...</p>
             </div>
         );
     }

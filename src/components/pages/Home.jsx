@@ -163,6 +163,7 @@ const Home = () => {
                     setIsOpen={setIsOpen}
                     darkMode={darkMode}
                     toggleMode={toggleMode}
+                    loading={loading}
                 />
                 <div className="main-container">
                     <Header
