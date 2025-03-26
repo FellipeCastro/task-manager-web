@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { IoMdClose } from "react-icons/io";
 
 import api from "../../constants/api";
 
@@ -35,9 +36,11 @@ const Login = () => {
 
             setError(null);
             localStorage.setItem("authToken", result.token);
+            localStorage.setItem("idUser", result.id);
             navigate("/home");
         } catch (error) {
             localStorage.removeItem("authToken");
+            localStorage.removeItem("isUser");
             error.response?.data.error ? handleError(error) : null;
             console.error("Erro ao realizar login: ", error);
             setLoading(false);
@@ -50,7 +53,7 @@ const Login = () => {
             <div className={error ? "error-msg" : "error-msg hide"}>
                 <span>{error}</span>
                 <button onClick={() => setError(null)}>
-                    X
+                    <IoMdClose />
                 </button>
             </div>
             <div className="container-form">
@@ -65,7 +68,7 @@ const Login = () => {
                     <div className="input-container">
                         <label htmlFor="email">Email</label>
                         <input
-                            type="text"
+                            type="email"
                             name="email"
                             id="email"
                             placeholder="Digite seu email aqui"

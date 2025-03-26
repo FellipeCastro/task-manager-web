@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { IoMdClose } from "react-icons/io";
 
 import api from "../../constants/api.js";
 
@@ -28,6 +29,7 @@ const Register = () => {
 
         if (password !== confirmPassword) {
             setError("As senhas não conferem");
+            setLoading(false);
             return;
         }
 
@@ -43,9 +45,11 @@ const Register = () => {
 
             setError(null);
             localStorage.setItem("authToken", result.token);
+            localStorage.setItem("idUser", result.id_user);
             navigate("/home");
         } catch (error) {
             localStorage.removeItem("authToken");
+            localStorage.removeItem("isUser");
             error.response?.data.error ? handleError(error) : null;
             console.error("Erro ao realizar cadastro: ", error);
             setLoading(false);
@@ -58,7 +62,7 @@ const Register = () => {
             <div className={error ? "error-msg" : "error-msg hide"}>
                 <span>{error}</span>
                 <button onClick={() => setError(null)}>
-                    X
+                    <IoMdClose />
                 </button>
             </div>
             <div className="container-form">
@@ -84,7 +88,7 @@ const Register = () => {
                     <div className="input-container">
                         <label htmlFor="email">Email</label>
                         <input
-                            type="text"
+                            type="email"
                             name="email"
                             id="email"
                             placeholder="Digite seu email aqui"

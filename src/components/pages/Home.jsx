@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { IoMdClose } from "react-icons/io";
 
 import Header from "../layout/Header";
 import MainBoard from "../layout/MainBoard";
@@ -12,6 +13,7 @@ import api from "../../constants/api";
 
 const Home = () => {
     const [boards, setBoards] = useState([]);
+    const [user, setUser] = useState([]);
     const [activeBoardId, setActiveBoardId] = useState(null);
     const [showAddBoardForm, setShowAddBoardForm] = useState(false);
     const [showAddTaskForm, setShowAddTaskForm] = useState(false);
@@ -25,7 +27,10 @@ const Home = () => {
     const [isAddingTask, setIsAddingTask] = useState(false);
     const [isUpdatingTask, setIsUpdatingTask] = useState(false);
     const [isDeletingTask, setIsDeletingTask] = useState(false);
+    const [isLoadingProfile, setIsLoadingProfile] = useState(false);
     const [error, setError] = useState(null);
+
+    const idUser = localStorage.getItem("idUser");
 
     // Função central para tratamento de erros
     const handleApiError = (error, defaultMessage) => {
@@ -35,7 +40,7 @@ const Home = () => {
     };
 
     // Função central para atualizar dados
-    const updateData = async () => {
+    const loadData = async () => {
         try {
             const response = await api.get("/boards/overview");
             const result = response.data;
@@ -53,7 +58,7 @@ const Home = () => {
         try {
             setIsAddingBoard(true);
             const response = await api.post("/boards", { title });
-            await updateData();
+            await loadData();
             setActiveBoardId(response.data.id_board);
             setIsOpen(false);
         } catch (error) {
@@ -67,7 +72,7 @@ const Home = () => {
         try {
             setIsDeletingBoard(true);
             await api.delete(`/boards/${id}`);
-            await updateData();
+            await loadData();
             if (activeBoardId === id) {
                 if (boards.length > 0) {
                     setActiveBoardId(boards[0].id);
@@ -87,7 +92,7 @@ const Home = () => {
         try {
             setIsAddingTask(true);
             await api.post(`/tasks/${activeBoardId}`, newTask);
-            await updateData();
+            await loadData();
             setShowAddTaskForm(false);
         } catch (error) {
             handleApiError(error, "Erro ao adicionar tarefa.");
@@ -102,7 +107,7 @@ const Home = () => {
             await api.put(`/subtasks/${subtaskId}`, {
                 is_done: !subtaskIsDone,
             });
-            await updateData();
+            await loadData();
             setShowTaskModal(false);
         } catch (error) {
             handleApiError(error, "Erro ao atualizar tarefa.");
@@ -115,7 +120,7 @@ const Home = () => {
         try {
             setIsDeletingTask(true);
             await api.delete(`/tasks/${activeBoardId}/${taskId}`);
-            await updateData();
+            await loadData();
             setShowTaskModal(false);
         } catch (error) {
             handleApiError(error, "Erro ao deletar tarefa.");
@@ -123,6 +128,19 @@ const Home = () => {
             setIsDeletingTask(false);
         }
     };
+
+    const loadProfile = async () => {
+        try {
+            setIsLoadingProfile(true);
+            const response = await api.get(`/users/profile/${idUser}`);
+            const result = response.data;
+            setUser(result); 
+        } catch (error) {
+            handleApiError(error, "Erro ao carregar dados do usuário.");
+        } finally {
+            setIsLoadingProfile(false);
+        }
+    }
 
     const handleTaskClick = (task) => {
         setSelectedTask(task);
@@ -135,7 +153,8 @@ const Home = () => {
     };
 
     useEffect(() => {
-        updateData();
+        loadData();
+        loadProfile();        
     }, []);
 
     const activeBoard = boards.find((board) => board.id === activeBoardId);
@@ -150,7 +169,9 @@ const Home = () => {
 
             <div className={error ? "error-msg" : "error-msg hide"}>
                 <span>{error}</span>
-                <button onClick={() => setError(null)}>X</button>
+                <button onClick={() => setError(null)}>
+                    <IoMdClose />
+                </button>
             </div>
             <div className="container">
                 <Sidebar
@@ -170,6 +191,8 @@ const Home = () => {
                         activeBoard={activeBoard}
                         setShowAddTaskForm={setShowAddTaskForm}
                         setIsOpen={setIsOpen}
+                        user={user}
+                        isLoadingProfile={isLoadingProfile}
                     />
                     <MainBoard
                         activeBoard={activeBoard}

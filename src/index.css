@@ -8,20 +8,20 @@
     --text-secondary-color: #9a9a9a;
     --fade-color: rgba(0, 0, 0, 0.5);
     --shadow-color: rgba(0, 0, 0, 0.1);
-    --error-color: #e57373;
-    --error-color-text: #832929;
+    --error-color: #ffafaf;
+    --error-color-text: #881010;
 }
 
 .light-mode:root {
     --primary-color: #635ec5;
     --secondary-color: #fff;
-    --bg-color: #f9f9f9;
+    --bg-color: #e7e7e7;
     --text-primary-color: #333;
     --text-secondary-color: #8a8a8a;
     --fade-color: rgba(0, 0, 0, 0.5);
     --shadow-color: rgba(0, 0, 0, 0.1);
-    --error-color: #e57373;
-    --error-color-text: #832929;
+    --error-color: #ffc0c0;
+    --error-color-text: #881010;
 }
 
 * {
@@ -74,7 +74,7 @@
     border: none;
     background-color: transparent;
     color: var(--error-color-text);
-    font-weight: bold;
+    font-size: 1.2em;
     cursor: pointer;
     position: absolute;
     top: 0;

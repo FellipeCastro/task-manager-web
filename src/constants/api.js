@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://task-manager-api-theta-hazel.vercel.app/",
+    baseURL: "https://task-manager-api-theta-hazel.vercel.app",
 });
 
 api.interceptors.request.use(
