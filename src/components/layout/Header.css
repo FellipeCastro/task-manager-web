@@ -72,7 +72,7 @@
     z-index: 8;
 }
 
-.open {
+.open-profile {
     top: calc(100% + 1em);
 }
 

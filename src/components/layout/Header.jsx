@@ -16,6 +16,14 @@ const Header = ({ activeBoard, setShowAddTaskForm, setIsOpen, user, isLoadingPro
         navigate("/login");
     };
 
+    const handleAddTask = () => {
+        if (!activeBoard) {
+            return;
+        }
+
+        setShowAddTaskForm(true);
+    }
+
     return (
         <>
             <header className="header">
@@ -31,7 +39,7 @@ const Header = ({ activeBoard, setShowAddTaskForm, setIsOpen, user, isLoadingPro
                 <div className="btns-container">
                     <button
                         className="btn"
-                        onClick={() => setShowAddTaskForm(true)}
+                        onClick={handleAddTask}
                     >
                         +Nova tarefa
                     </button>
@@ -39,7 +47,7 @@ const Header = ({ activeBoard, setShowAddTaskForm, setIsOpen, user, isLoadingPro
                         <FaUser /> 
                     </button>
                 </div>
-                <div className={profileIsOpen ? "profile open" : "profile"}> 
+                <div className={profileIsOpen ? "profile open-profile" : "profile"}> 
                     <button className="close-btn" onClick={() => setProfileIsOpen(false)}>
                         <FaXmark />
                     </button>

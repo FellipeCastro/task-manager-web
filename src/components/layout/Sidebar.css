@@ -116,7 +116,7 @@
     100% { color: var(--text-primary-color); }
 }
 
-@media (max-width: 1290px) {
+@media (max-width: 950px) {
     .aside {
         width: 100%;
         height: 100vh;
@@ -139,6 +139,7 @@
         width: 100%;
     }
 }
+
 
 @media (max-width: 760px) {
     .aside h1 {
