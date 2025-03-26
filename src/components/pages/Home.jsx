@@ -10,6 +10,7 @@ import TaskModal from "../layout/TaskModal";
 import Loading from "../layout/Loading";
 
 import api from "../../constants/api";
+import ConfirmModal from "../layout/ConfirmModal";
 
 const Home = () => {
     const [boards, setBoards] = useState([]);
@@ -28,6 +29,7 @@ const Home = () => {
     const [isUpdatingTask, setIsUpdatingTask] = useState(false);
     const [isDeletingTask, setIsDeletingTask] = useState(false);
     const [isLoadingProfile, setIsLoadingProfile] = useState(false);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [error, setError] = useState(null);
 
     const idUser = localStorage.getItem("idUser");
@@ -134,13 +136,13 @@ const Home = () => {
             setIsLoadingProfile(true);
             const response = await api.get(`/users/profile/${idUser}`);
             const result = response.data;
-            setUser(result); 
+            setUser(result);
         } catch (error) {
             handleApiError(error, "Erro ao carregar dados do usuário.");
         } finally {
             setIsLoadingProfile(false);
         }
-    }
+    };
 
     const handleTaskClick = (task) => {
         setSelectedTask(task);
@@ -154,7 +156,7 @@ const Home = () => {
 
     useEffect(() => {
         loadData();
-        loadProfile();        
+        loadProfile();
     }, []);
 
     const activeBoard = boards.find((board) => board.id === activeBoardId);
