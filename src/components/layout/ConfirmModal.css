@@ -36,7 +36,7 @@
 .confirm-modal h2 {
     font-size: 1.4em;
     text-align: left;
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
 }
 
 .confirm-modal p {
@@ -52,11 +52,11 @@
     gap: 1em;
 }
 
-.cancel-btn, 
+.cancel-btn,
 .confirm-btn {
     padding: 0.5em;
     border: 1px solid var(--text-secondary-color);
-    border-radius: .4em;
+    border-radius: 0.4em;
     background-color: var(--secondary-color);
     color: var(--text-secondary-color);
     font-weight: bold;
@@ -68,4 +68,20 @@
     background-color: var(--error-color-text);
     color: #fff;
     border-color: var(--error-color-text);
+}
+
+@media (max-width: 600px) {
+    .confirm-modal {
+        width: 90%;
+    }
+
+    .confirm-modal h2 {
+        font-size: 1.2em;
+    }
+
+    .confirm-modal p,
+    .cancel-btn,
+    .confirm-btn {
+        font-size: 0.8em;
+    }
 }
