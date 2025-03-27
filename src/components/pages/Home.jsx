@@ -10,7 +10,6 @@ import TaskModal from "../layout/TaskModal";
 import Loading from "../layout/Loading";
 
 import api from "../../constants/api";
-import ConfirmModal from "../layout/ConfirmModal";
 
 const Home = () => {
     const [boards, setBoards] = useState([]);
@@ -21,7 +20,9 @@ const Home = () => {
     const [showTaskModal, setShowTaskModal] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
-    const [darkMode, setDarkMode] = useState(true);
+    const [darkMode, setDarkMode] = useState(() => {
+        return localStorage.getItem("theme") === "dark";
+    });
     const [loading, setLoading] = useState(true);
     const [isAddingBoard, setIsAddingBoard] = useState(false);
     const [isDeletingBoard, setIsDeletingBoard] = useState(false);
@@ -149,14 +150,33 @@ const Home = () => {
     };
 
     const toggleMode = () => {
-        setDarkMode(!darkMode);
-        document.querySelector("html").classList.toggle("light-mode");
+        const newMode = !darkMode;
+        setDarkMode(newMode);
+        localStorage.setItem("theme", newMode ? "dark" : "light");
+
+        if (newMode) {
+            document.documentElement.classList.add("dark-mode");
+            document.documentElement.classList.remove("light-mode");
+        } else {
+            document.documentElement.classList.add("light-mode");
+            document.documentElement.classList.remove("dark-mode");
+        }
     };
 
     useEffect(() => {
         loadData();
         loadProfile();
     }, []);
+
+    useEffect(() => {
+        if (darkMode) {
+            document.documentElement.classList.add("dark-mode");
+            document.documentElement.classList.remove("light-mode");
+        } else {
+            document.documentElement.classList.add("light-mode");
+            document.documentElement.classList.remove("dark-mode");
+        }
+    }, [darkMode]);
 
     const activeBoard = boards.find((board) => board.id === activeBoardId);
 
@@ -167,7 +187,6 @@ const Home = () => {
             {isAddingTask && <Loading />}
             {isUpdatingTask && <Loading />}
             {isDeletingTask && <Loading />}
-
 
             <div className={error ? "error-msg" : "error-msg hide"}>
                 <span>{error}</span>
