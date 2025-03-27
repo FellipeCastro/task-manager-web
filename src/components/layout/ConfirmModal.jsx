@@ -1,3 +1,4 @@
+import { IoIosWarning } from "react-icons/io";
 import "./ConfirmModal.css";
 
 const ConfirmModal = ({ title, description, btnText, onClick, onCancel }) => {
@@ -5,8 +6,13 @@ const ConfirmModal = ({ title, description, btnText, onClick, onCancel }) => {
         <>
             <div className="fade-modal" onClick={onCancel}></div>
             <div className="confirm-modal">
-                <h2>{title}</h2>
-                <p>{description}</p>
+                <div className="flex-modal">
+                    <IoIosWarning />
+                    <div>
+                        <h2>{title}</h2>
+                        <p>{description}</p>
+                    </div>
+                </div>
                 <div className="btns-container-modal">
                     <button className="cancel-btn" onClick={onCancel}>
                         Cancelar

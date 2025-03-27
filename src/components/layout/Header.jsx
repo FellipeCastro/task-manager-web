@@ -66,7 +66,7 @@ const Header = ({ activeBoard, setShowAddTaskForm, setIsOpen, user, isLoadingPro
             {showConfirmLogout && (
                 <ConfirmModal
                     title="Confirmar Logout"
-                    description="Tem certeza de que deseja sair?"
+                    description="Tem certeza de que deseja sair da sua conta?"
                     btnText="Sair"
                     onClick={confirmLogout}
                     onCancel={() => setShowConfirmLogout(false)}

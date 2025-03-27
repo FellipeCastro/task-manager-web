@@ -29,7 +29,6 @@ const Home = () => {
     const [isUpdatingTask, setIsUpdatingTask] = useState(false);
     const [isDeletingTask, setIsDeletingTask] = useState(false);
     const [isLoadingProfile, setIsLoadingProfile] = useState(false);
-    const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [error, setError] = useState(null);
 
     const idUser = localStorage.getItem("idUser");
@@ -168,6 +167,7 @@ const Home = () => {
             {isAddingTask && <Loading />}
             {isUpdatingTask && <Loading />}
             {isDeletingTask && <Loading />}
+
 
             <div className={error ? "error-msg" : "error-msg hide"}>
                 <span>{error}</span>
