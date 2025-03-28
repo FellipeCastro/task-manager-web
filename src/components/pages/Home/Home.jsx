@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
-
-import Header from "../layout/Header";
-import MainBoard from "../layout/MainBoard";
-import Sidebar from "../layout/Sidebar";
-import AddBoardForm from "../layout/AddBoardForm";
-import AddTaskForm from "../layout/AddTaskForm";
-import TaskModal from "../layout/TaskModal";
-import Loading from "../layout/Loading";
-
-import api from "../../constants/api";
+import Header from "../../layout/Header/Header.jsx";
+import MainBoard from "../../layout/MainBoard/MainBoard.jsx";
+import Sidebar from "../../layout/Sidebar/Sidebar.jsx";
+import AddBoardForm from "../../layout/AddBoardForm/AddBoardForm.jsx";
+import AddTaskForm from "../../layout/AddTaskForm/AddTaskForm.jsx";
+import TaskModal from "../../layout/TaskModal/TaskModal.jsx";
+import Loading from "../../layout/Loading/Loading.jsx";
+import api from "../../../constants/api.js";
 
 const Home = () => {
     const [boards, setBoards] = useState([]);
@@ -166,9 +164,7 @@ const Home = () => {
     useEffect(() => {
         loadData();
         loadProfile();
-    }, []);
 
-    useEffect(() => {
         if (darkMode) {
             document.documentElement.classList.add("dark-mode");
             document.documentElement.classList.remove("light-mode");

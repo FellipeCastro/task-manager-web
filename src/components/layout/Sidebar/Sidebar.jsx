@@ -2,8 +2,7 @@ import { useState } from "react";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
-import ConfirmModal from "../layout/ConfirmModal";
-
+import ConfirmModal from "../ConfirmModal/ConfirmModal.jsx";
 import "./Sidebar.css";
 
 const Sidebar = ({
@@ -49,7 +48,11 @@ const Sidebar = ({
                 <h1>
                     TaskManager
                     <button className="mode-btn" onClick={toggleMode}>
-                        {darkMode ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
+                        {darkMode ? (
+                            <MdOutlineLightMode />
+                        ) : (
+                            <MdOutlineDarkMode />
+                        )}
                     </button>
                 </h1>
                 <span className="info">Todos painéis ({boards.length})</span>
@@ -60,7 +63,9 @@ const Sidebar = ({
                     {boards.map((board) => (
                         <div
                             key={board.id}
-                            className={`board ${activeBoardId === board.id ? "active" : ""}`}
+                            className={`board ${
+                                activeBoardId === board.id ? "active" : ""
+                            }`}
                             onClick={() => toggleBoard(board.id)}
                         >
                             <MdOutlineDashboard /> <span>{board.title}</span>
@@ -76,7 +81,10 @@ const Sidebar = ({
                         </div>
                     ))}
 
-                    <div className="board new-board" onClick={() => setShowAddBoardForm(true)}>
+                    <div
+                        className="board new-board"
+                        onClick={() => setShowAddBoardForm(true)}
+                    >
                         <MdOutlineDashboard /> <span>+Criar novo painel</span>
                     </div>
                 </div>

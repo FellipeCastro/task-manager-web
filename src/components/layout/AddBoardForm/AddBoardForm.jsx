@@ -1,8 +1,7 @@
 import { useState } from "react";
-
 import "./Form.css";
 
-const AddBoardForm = ({ setShowAddBoardForm, addBoard, setLoading }) => {
+const AddBoardForm = ({ setShowAddBoardForm, addBoard }) => {
     // State para o valor do input
     const [newBoardTitle, setNewBoardTitle] = useState("");
 
@@ -20,7 +19,6 @@ const AddBoardForm = ({ setShowAddBoardForm, addBoard, setLoading }) => {
 
         addBoard(newBoardTitle); // Chamando a função addBoard com o valor do input como parâmetro
         setShowAddBoardForm(false); // Fechando o formulário
-        // setLoading(true);
     };
 
     return (

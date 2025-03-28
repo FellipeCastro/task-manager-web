@@ -2,11 +2,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaUser, FaXmark } from "react-icons/fa6";
-import ConfirmModal from "../layout/ConfirmModal"; // Importe o modal de confirmação
-
+import ConfirmModal from "../ConfirmModal/ConfirmModal.jsx";
 import "./Header.css";
 
-const Header = ({ activeBoard, setShowAddTaskForm, setIsOpen, user, isLoadingProfile }) => {
+const Header = ({
+    activeBoard,
+    setShowAddTaskForm,
+    setIsOpen,
+    user,
+    isLoadingProfile,
+}) => {
     const [profileIsOpen, setProfileIsOpen] = useState(false);
     const [showConfirmLogout, setShowConfirmLogout] = useState(false);
 
@@ -34,20 +39,32 @@ const Header = ({ activeBoard, setShowAddTaskForm, setIsOpen, user, isLoadingPro
                     <span>
                         <IoIosArrowDown />
                     </span>
-                    {activeBoard ? activeBoard.title : "Nenhum painel selecionado"}
+                    {activeBoard
+                        ? activeBoard.title
+                        : "Nenhum painel selecionado"}
                 </h2>
 
                 <div className="btns-container">
                     <button className="btn" onClick={handleAddTask}>
                         +Nova tarefa
                     </button>
-                    <button className="profile-btn" onClick={() => setProfileIsOpen(!profileIsOpen)}>
+                    <button
+                        className="profile-btn"
+                        onClick={() => setProfileIsOpen(!profileIsOpen)}
+                    >
                         <FaUser />
                     </button>
                 </div>
 
-                <div className={profileIsOpen ? "profile open-profile" : "profile"}>
-                    <button className="close-btn" onClick={() => setProfileIsOpen(false)}>
+                <div
+                    className={
+                        profileIsOpen ? "profile open-profile" : "profile"
+                    }
+                >
+                    <button
+                        className="close-btn"
+                        onClick={() => setProfileIsOpen(false)}
+                    >
                         <FaXmark />
                     </button>
                     <h3>Perfil</h3>

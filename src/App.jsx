@@ -1,9 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
-// Componentes
-import Home from "./components/pages/Home";
-import Login from "./components/pages/Login";
-import Register from "./components/pages/Register";
+import Home from "./components/pages/Home/Home.jsx";
+import Login from "./components/pages/Login/Login.jsx";
+import Register from "./components/pages/Register/Register.jsx";
 
 const App = () => {
     const token = localStorage.getItem("authToken");

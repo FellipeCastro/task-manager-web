@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaCheck, FaTrashAlt } from "react-icons/fa";
-import ConfirmModal from "../layout/ConfirmModal";
+import ConfirmModal from "../ConfirmModal/ConfirmModal.jsx";
 import "./TaskModal.css";
 
 const TaskModal = ({ task, setShowTaskModal, updateTask, deleteTask }) => {
@@ -38,13 +38,24 @@ const TaskModal = ({ task, setShowTaskModal, updateTask, deleteTask }) => {
                 <p>{task.description}</p>
 
                 <h5>
-                    Subtarefas ({countCompletedSubtasks(task.subtasks)} de {task.subtasks.length})
+                    Subtarefas ({countCompletedSubtasks(task.subtasks)} de{" "}
+                    {task.subtasks.length})
                 </h5>
 
                 <div className="subtasks">
                     {task.subtasks.map((subtask) => (
-                        <div key={subtask.id} className={`subtask ${subtask.is_done ? "done" : ""}`}>
-                            <button className="subtask-btn" onClick={() => handleEdit(subtask.id, subtask.is_done)}>
+                        <div
+                            key={subtask.id}
+                            className={`subtask ${
+                                subtask.is_done ? "done" : ""
+                            }`}
+                        >
+                            <button
+                                className="subtask-btn"
+                                onClick={() =>
+                                    handleEdit(subtask.id, subtask.is_done)
+                                }
+                            >
                                 {subtask.is_done ? <FaCheck /> : ""}
                             </button>
                             <span>{subtask.title}</span>
