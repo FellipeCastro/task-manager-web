@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: .5em;
+    gap: 0.5em;
     margin-bottom: 1em;
 }
 
@@ -36,15 +36,15 @@
 }
 
 span.to-do {
-    background: #65BFDB;
+    background: #65bfdb;
 }
 
 span.doing {
-    background: #8475DB;
+    background: #8475db;
 }
 
 span.done {
-    background: #83D4BA;
+    background: #83d4ba;
 }
 
 .title h3 {
@@ -57,13 +57,13 @@ span.done {
     background: var(--secondary-color);
     margin-bottom: 1em;
     padding: 1em 2em;
-    border-radius: .5em;
+    border-radius: 0.5em;
     cursor: pointer;
     box-shadow: 0 0 1em var(--shadow-color);
 }
 
 .task h4 {
-    margin-bottom: .3em;
+    margin-bottom: 0.3em;
 }
 
 .task span {
@@ -71,9 +71,15 @@ span.done {
 }
 
 @keyframes changeColor {
-    0% { color: var(--text-primary-color); }
-    50% { color: var(--text-secondary-color); } 
-    100% { color: var(--text-primary-color); }
+    0% {
+        color: var(--text-primary-color);
+    }
+    50% {
+        color: var(--text-secondary-color);
+    }
+    100% {
+        color: var(--text-primary-color);
+    }
 }
 
 @media (max-width: 1100px) {

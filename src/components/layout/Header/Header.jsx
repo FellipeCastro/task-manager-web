@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
-import { FaUser, FaXmark } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa6";
 import ConfirmModal from "../ConfirmModal/ConfirmModal.jsx";
 import "./Header.css";
+import Profile from "../Profile/Profile.jsx";
 
 const Header = ({
     activeBoard,
@@ -56,28 +57,13 @@ const Header = ({
                     </button>
                 </div>
 
-                <div
-                    className={
-                        profileIsOpen ? "profile open-profile" : "profile"
-                    }
-                >
-                    <button
-                        className="close-btn"
-                        onClick={() => setProfileIsOpen(false)}
-                    >
-                        <FaXmark />
-                    </button>
-                    <h3>Perfil</h3>
-                    <strong>Nome: </strong>
-                    <p>{isLoadingProfile ? "Carregando..." : user.name}</p>
-                    <hr />
-                    <strong>Email: </strong>
-                    <p>{isLoadingProfile ? "Carregando..." : user.email}</p>
-                    <hr />
-                    <button className="btn logout-btn" onClick={handleLogout}>
-                        Sair
-                    </button>
-                </div>
+                <Profile
+                    profileIsOpen={profileIsOpen}
+                    setProfileIsOpen={setProfileIsOpen}
+                    isLoadingProfile={isLoadingProfile}
+                    user={user}
+                    handleLogout={handleLogout}
+                />
             </header>
 
             {showConfirmLogout && (

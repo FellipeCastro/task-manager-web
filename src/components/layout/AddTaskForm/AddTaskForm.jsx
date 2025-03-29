@@ -33,7 +33,7 @@ const AddTaskForm = ({ setShowAddTaskForm, addTask }) => {
     // Função que remove uma subtarefa com base no índice passado
     const removeSubtask = (index) => {
         if (subtasks.length <= 1) return;
-                
+
         // Filtra o array de subtarefas, removendo a subtarefa do índice passado
         setSubtasks(subtasks.filter((_, i) => i !== index));
     };

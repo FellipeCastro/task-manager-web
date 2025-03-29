@@ -111,9 +111,15 @@
 }
 
 @keyframes changeColor {
-    0% { color: var(--text-primary-color); }
-    50% { color: var(--text-secondary-color); } 
-    100% { color: var(--text-primary-color); }
+    0% {
+        color: var(--text-primary-color);
+    }
+    50% {
+        color: var(--text-secondary-color);
+    }
+    100% {
+        color: var(--text-primary-color);
+    }
 }
 
 @media (max-width: 950px) {
@@ -139,7 +145,6 @@
         width: 100%;
     }
 }
-
 
 @media (max-width: 760px) {
     .aside h1 {

@@ -106,7 +106,9 @@ const Register = () => {
                         />
                     </div>
                     <div className="input-container">
-                        <label htmlFor="confirm-password">Confirmar senha</label>
+                        <label htmlFor="confirm-password">
+                            Confirmar senha
+                        </label>
                         <input
                             type="password"
                             name="confirm-password"
@@ -120,7 +122,8 @@ const Register = () => {
                         Cadastrar
                     </button>
                     <span className="bottom-link">
-                        Já tem uma conta? <Link to="/login">Faça seu login já</Link>
+                        Já tem uma conta?{" "}
+                        <Link to="/login">Faça seu login já</Link>
                     </span>
                 </form>
             </div>

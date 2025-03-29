@@ -173,8 +173,8 @@ const Home = () => {
             document.documentElement.classList.add("light-mode");
             document.documentElement.classList.remove("dark-mode");
         }
-    
-        localStorage.setItem("theme", darkMode ? "dark" : "light")
+
+        localStorage.setItem("theme", darkMode ? "dark" : "light");
     }, [darkMode]);
 
     const activeBoard = boards.find((board) => board.id === activeBoardId);
