@@ -19,7 +19,8 @@ const Home = () => {
     const [selectedTask, setSelectedTask] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(() => {
-        return localStorage.getItem("theme") === "dark";
+        const storedTheme = localStorage.getItem("theme");
+        return storedTheme ? storedTheme === "dark" : true;
     });
     const [loading, setLoading] = useState(true);
     const [isAddingBoard, setIsAddingBoard] = useState(false);
@@ -172,6 +173,8 @@ const Home = () => {
             document.documentElement.classList.add("light-mode");
             document.documentElement.classList.remove("dark-mode");
         }
+    
+        localStorage.setItem("theme", darkMode ? "dark" : "light")
     }, [darkMode]);
 
     const activeBoard = boards.find((board) => board.id === activeBoardId);

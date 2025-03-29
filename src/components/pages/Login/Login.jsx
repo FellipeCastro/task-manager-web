@@ -38,7 +38,7 @@ const Login = () => {
             navigate("/home");
         } catch (error) {
             localStorage.removeItem("authToken");
-            localStorage.removeItem("isUser");
+            localStorage.removeItem("idUser");
             error.response?.data.error ? handleError(error) : null;
             console.error("Erro ao realizar login: ", error);
             setLoading(false);
