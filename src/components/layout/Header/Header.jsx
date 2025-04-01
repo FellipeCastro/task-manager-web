@@ -24,7 +24,7 @@ const Header = ({
 
     const confirmLogout = () => {
         localStorage.removeItem("authToken");
-        localStorage.removeItem("isUser");
+        localStorage.removeItem("idUser");
         navigate("/login");
     };
 

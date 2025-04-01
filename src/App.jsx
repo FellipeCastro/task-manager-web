@@ -10,7 +10,7 @@ const App = () => {
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/" element={<Navigate to="/login" />} />
+                    <Route exact path="/" element={token ? <Navigate to="/home" /> : <Navigate to="/login" />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route

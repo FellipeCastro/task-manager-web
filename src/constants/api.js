@@ -17,4 +17,16 @@ api.interceptors.request.use(
     }
 );
 
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            console.warn("Token inválido ou expirado. Redirecionando para login...");
+            localStorage.removeItem("authToken");
+            window.location.href = "/login"; 
+        }
+        return Promise.reject(error);
+    }
+);
+
 export default api;
