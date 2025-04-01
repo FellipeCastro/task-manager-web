@@ -24,6 +24,7 @@ const Register = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setError(null);
 
         if (password !== confirmPassword) {
             setError("As senhas não conferem");
@@ -31,26 +32,32 @@ const Register = () => {
             return;
         }
 
-        const formatedEmail = email.toLocaleLowerCase().trim();
+        const formattedEmail = email.toLowerCase().trim();
+        let isRegistered = false; 
 
         try {
             const response = await api.post("/users/register", {
                 name,
-                email: formatedEmail,
+                email: formattedEmail,
                 password,
             });
-            const result = response.data;
 
-            setError(null);
+            const result = response.data;
             localStorage.setItem("authToken", result.token);
             localStorage.setItem("idUser", result.id_user);
-            navigate("/home");
+            isRegistered = true; 
         } catch (error) {
             localStorage.removeItem("authToken");
             localStorage.removeItem("idUser");
-            error.response?.data.error ? handleError(error) : null;
+            if (error.response?.data?.error) {
+                handleError(error);
+            }
             console.error("Erro ao realizar cadastro: ", error);
+        } finally {
             setLoading(false);
+            if (isRegistered) {
+                navigate("/home"); 
+            }
         }
     };
 
