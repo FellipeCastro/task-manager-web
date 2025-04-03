@@ -3,23 +3,64 @@ import Home from "./components/pages/Home/Home.jsx";
 import Login from "./components/pages/Login/Login.jsx";
 import Register from "./components/pages/Register/Register.jsx";
 
-const App = () => {
+// Componente de rota protegida
+const ProtectedRoute = ({ children }) => {
     const token = localStorage.getItem("authToken");
+    return token ? children : <Navigate to="/login" replace />;
+};
 
+// Componente de rota para visitantes
+const GuestRoute = ({ children }) => {
+    const token = localStorage.getItem("authToken");
+    return token ? <Navigate to="/home" replace /> : children;
+};
+
+const App = () => {
     return (
-        <>
-            <BrowserRouter>
-                <Routes>
-                    <Route exact path="/" element={token ? <Navigate to="/home" /> : <Navigate to="/login" />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route
-                        path="/home"
-                        element={token ? <Home /> : <Navigate to="/login" />}
-                    />
-                </Routes>
-            </BrowserRouter>
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <Navigate
+                            to={
+                                localStorage.getItem("authToken")
+                                    ? "/home"
+                                    : "/login"
+                            }
+                            replace
+                        />
+                    }
+                />
+
+                <Route
+                    path="/login"
+                    element={
+                        <GuestRoute>
+                            <Login />
+                        </GuestRoute>
+                    }
+                />
+
+                <Route
+                    path="/register"
+                    element={
+                        <GuestRoute>
+                            <Register />
+                        </GuestRoute>
+                    }
+                />
+
+                <Route
+                    path="/home"
+                    element={
+                        <ProtectedRoute>
+                            <Home />
+                        </ProtectedRoute>
+                    }
+                />
+            </Routes>
+        </BrowserRouter>
     );
 };
 
