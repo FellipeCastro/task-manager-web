@@ -35,7 +35,7 @@ const Login = () => {
 
             const result = response.data;
             localStorage.setItem("authToken", result.token);
-            localStorage.setItem("idUser", result.id);
+            localStorage.setItem("idUser", result.id_user);
             isAuthenticated = true; 
         } catch (error) {
             localStorage.removeItem("authToken");

@@ -133,7 +133,7 @@ const Home = () => {
     const loadProfile = async () => {
         try {
             setIsLoadingProfile(true);
-            const response = await api.get(`/users/profile/${idUser}`);
+            const response = await api.get("/users/profile");
             const result = response.data;
             setUser(result);
         } catch (error) {
