@@ -9,6 +9,7 @@
 }
 
 .aside h1 {
+    font-size: 1.6rem;
     margin-bottom: 1.5em;
     display: flex;
     align-items: center;
@@ -81,7 +82,7 @@
 }
 
 .delete-btn svg {
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .active {
